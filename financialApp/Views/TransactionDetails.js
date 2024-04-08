@@ -1,7 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { fetchTransactions } from '../Database/database';
 
 const TransactionDetailScreen = ({ route }) => {
+
+
+
+
   const { transaction } = route.params;
 
   return (

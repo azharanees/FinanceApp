@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { TransactionContext } from '../TransactionContext';
 
 const calculateTotalExpenses = (transactions) => {
+
   return transactions.reduce((total, transaction) => total + transaction.amount, 0);
 };
 
@@ -10,6 +11,7 @@ const calculateHighLowSpending = (transactions) => {
   const amounts = transactions.map(transaction => transaction.amount);
   const maxAmount = Math.max(...amounts);
   const minAmount = Math.min(...amounts);
+  
   return { maxAmount, minAmount };
 };
 
@@ -22,8 +24,20 @@ const calculateDateRange = (transactions) => {
   return { startDate, endDate, startMonth, endMonth };
 };
 
+
+
 const SummaryScreen = () => {
+
   const { transactions } = useContext(TransactionContext);
+
+  if (transactions.length === 0) {
+    return (
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>No Transactions</Text>
+        <Text style={styles.label}>There are no transactions to display.</Text>
+      </View>
+    );
+  }
 
   const totalExpenses = calculateTotalExpenses(transactions);
   const { maxAmount, minAmount } = calculateHighLowSpending(transactions);
